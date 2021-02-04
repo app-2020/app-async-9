@@ -28,5 +28,31 @@ def index():
         return render_template("index.html",
                                users = user_results,
                                posts = post_results)
+    
+@app.route("/posts/<post_id>")  
+def show_post_detail(post_id):
+    
+    query = """
+    SELECT p.title, p.content, u.username
+    FROM posts p
+    INNER JOIN users u ON p.author=u.id
+    WHERE p.id={}
+    """.format(post_id)
+
+    with engine.connect() as connection:
+        
+        results = connection.execute(query)
+        post = results.fetchone()
+        
+        return render_template("post.html", post = post)
+
+        
+
+
+
+
+
+
+
 
 app.run()

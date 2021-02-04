@@ -52,7 +52,7 @@ with engine.connect() as connection:
     results = connection.execute(users_query)
 
     for user in results:
-        print(user[1])
+        print(user)
     
     
     
